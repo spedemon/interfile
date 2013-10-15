@@ -7,18 +7,16 @@
 import unittest
 from .. import listmode
 
-class TestLoadLibraries(unittest.TestCase): 
-    """Sequence of tests to verify that the C libraries are loaded correctly. """ 
+
+class TestListmode(unittest.TestCase): 
+    """Sequence of tests for module listmode. """ 
     def setUp(self):
         pass
 
-    def test_library_listmode_iface(self): 
-        """If this test passes, the library listmode_iface has been built and wrapped successfully. """
-        self.assertTrue(listmode.test_library_listmode_iface()) 
+    def test_load_c_libraries(self): 
+        """Check if the C libraries can be loaded. """
+        pass
 
-    def test_petlink32_info(self): 
-        """Test if petlink32_info works. """ 
-        pass 
 
 
 if __name__=="__main__": 

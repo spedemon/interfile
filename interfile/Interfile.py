@@ -4,10 +4,17 @@
 # Aalto University, School of Science, Helsinki
 # Oct 2013, Helsinki 
 
+__all__ = ['FileParser','load','listmode_to_sinogram']
 from StringIO import StringIO
 import json
 import os
-from interfile.exceptions import *
+import petlink
+try: 
+    import mMR
+except ImportError:
+    have_mMR = False
+else: 
+    have_mMR = True 
 
 class ParsingError(Exception): 
     def __init__(self,value):
@@ -212,7 +219,7 @@ def load(filename):
 
 
 
-def list_mode_to_sinogram(filename): 
+def listmode_to_sinogram(filename): 
     parser = FileParser()
     dic = parser.parse_file(filename) 
 
