@@ -1,8 +1,13 @@
 
+# interfile - Interfile read and write 
+# Stefano Pedemonte
+# Aalto University, School of Science, Helsinki
+# Oct 2013, Helsinki 
+
 from StringIO import StringIO
 import json
 import os
-
+from interfile.exceptions import *
 
 class ParsingError(Exception): 
     def __init__(self,value):

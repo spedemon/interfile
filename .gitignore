@@ -1,0 +1,6 @@
+build/
+interfile.egg-info/
+dist/
+*.pyc
+*~
+_trial_temp/
