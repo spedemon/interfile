@@ -8,7 +8,7 @@
 from setuptools import setup, Extension
 from glob import glob 
 
-#interfile_c_module = Extension('interfile.interfile_c', ['interfile/interfile_c.c']) 
+#interfile_c_module = Library('interfile.interfile_c', ['interfile/interfile_c.c']) 
 
 setup(
     name='interfile',
@@ -37,7 +37,7 @@ setup(
     ],
     install_requires=[
         "numpy >= 1.7.1", 
-        "wrapid >= 0.1.0", 
+        "simplewrap >= 0.1.0", 
         "petlink >= 0.1.0" ], 
 )
 

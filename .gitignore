@@ -5,3 +5,4 @@ dist/
 *~
 _trial_temp/
 *.so
+*.dll
