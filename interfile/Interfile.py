@@ -24,7 +24,7 @@ class ParsingError(Exception):
 
 
 
-IGNORE      = ['%']
+IGNORE      = ['%','\00']
 OBLIGATORY  = ['!']
 LINE_END    = ['\r\n','\n']
 DECLARATION = ":="
@@ -48,7 +48,7 @@ class LineParser():
             return self._no_declaration() 
         elif len(segments) > 2: 
             raise ParsingError("Line %s contains too many '%s'. \n %s "%(str(line_index),DECLARATION,self.line) ) 
-        # parse the left had side of the expression
+        # parse the left hand side of the expression
         left = segments[0] 
         left = self._strip_outer_spaces(left) 
         left = self._strip_ignore(left) 
@@ -60,7 +60,7 @@ class LineParser():
         left = self._strip_outer_spaces(left) 
         field_name = left 
 
-        # parse the right had side of the expression
+        # parse the right hand side of the expression
         right = segments[1] 
         right = self._strip_line_end(right) 
         right = self._strip_outer_spaces(right) 
@@ -73,6 +73,15 @@ class LineParser():
             data = self._get_data(right)
             if data.lower()=='none': 
                 data = None
+
+        # try to convert to int and to float
+        try: 
+            data = int(data)
+        except (TypeError, ValueError): 
+            try: 
+                data = float(data)
+            except (TypeError, ValueError): 
+                pass
 
         # make dictionary
         self.dict = {'name':field_name,'value':data,'unit':unit_measure,'type':data_type,'listindex':None,'obligatory':is_obligatory} 
@@ -126,7 +135,7 @@ class LineParser():
         while s2.endswith(' '): 
             s2 = s2[:-1]
         return s2
-
+       
     def _get_unit_measure(self,s): 
         if not s.endswith(')'): 
             return (s, None)
