@@ -33,7 +33,7 @@ COMMENT     = [';']
 class LineParser(): 
     def __init__(self,line=None,line_index='unknown'): 
         self.dict = {}         
-        if line!=None: 
+        if line is not None: 
             self.parse_line(line,line_index)
 
     def parse(self,line,line_index): 
@@ -55,7 +55,7 @@ class LineParser():
         is_obligatory = self._is_obligatory(left)
         left = self._strip_obligatory(left) 
         left,unit_measure = self._get_unit_measure(left) 
-        if unit_measure!=None: 
+        if unit_measure is not None: 
             unit_measure = self._strip_outer_spaces(unit_measure) 
         left = self._strip_outer_spaces(left) 
         field_name = left 
@@ -172,7 +172,7 @@ class LineParser():
 class FileParser(): 
     def __init__(self,header=None): 
         self.dict = {} 
-        if header!=None: 
+        if header is not None: 
             if os.path.exists(header): 
                 self.parse_file(header) 
             else: 

@@ -36,7 +36,7 @@ setup(
         "Topic :: Scientific/Engineering :: Mathematics",
     ],
     install_requires=[
-        "numpy >= 1.7.1", 
+        "numpy >= 1.6.0", 
         "simplewrap >= 0.1.0", 
         "petlink >= 0.1.0" ], 
 )
