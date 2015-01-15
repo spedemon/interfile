@@ -8,7 +8,7 @@
 from setuptools import setup, Extension
 from glob import glob 
 
-#interfile_c_module = Library('interfile.interfile_c', ['interfile/interfile_c.c']) 
+#interfile_c_module = Extension('interfile.interfile_c', ['interfile/interfile_c.c']) 
 
 setup(
     name='interfile',
