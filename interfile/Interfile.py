@@ -74,6 +74,10 @@ class LineParser():
             if data.lower()=='none': 
                 data = None
 
+        # convert to list
+        if type(data) == str and len(data) > 0 and data[0] == "{":
+            data = self._parse_list(data)
+
         # try to convert to int and to float
         try: 
             data = int(data)
@@ -167,6 +171,20 @@ class LineParser():
             if l.startswith(st): 
                 return True 
         return False         
+
+    def _parse_list(self, s):
+        # delete bracers
+        s = s.translate(None, "{},")
+        list = []
+        for x in s.split():
+            try:
+                list.append(int(x))
+            except (TypeError, ValueError):
+                try:
+                    list.append(float(x))
+                except (TypeError, ValueError):
+                    list.append(x)
+        return list
 
 
 class FileParser(): 
