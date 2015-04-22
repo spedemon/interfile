@@ -3,7 +3,13 @@
 # Stefano Pedemonte
 # Aalto University, School of Science, Helsinki
 # Oct 2013, Helsinki 
+# Feb 2015, Helsinki 
 
+# Use old Python build system, otherwise the extension libraries cannot be found. FIXME 
+import sys
+for arg in sys.argv: 
+    if arg=="install":
+        sys.argv.append('--old-and-unmanageable') 
 
 from setuptools import setup, Extension
 from glob import glob 
@@ -12,7 +18,7 @@ from glob import glob
 
 setup(
     name='interfile',
-    version='0.1.0',
+    version='0.2.1',
     author='Stefano Pedemonte',
     author_email='stefano.pedemonte@gmail.com',
     packages=['interfile', 'interfile.examples', 'interfile.tests'],
@@ -20,13 +26,12 @@ setup(
     scripts=[], 
 #    ext_modules=[interfile_c_module, ],
     test_suite = "interfile.tests", 
-    url='http://niftyrec.scienceontheweb.com/',
+    url='http://www.occiput.io/',
     license='LICENSE.txt',
     description='Interfile read and write.',
-    long_description=open('README.txt').read(),
+    long_description=open('README.rst').read(),
     classifiers = [
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3",
         "Development Status :: 4 - Beta",
         "Environment :: Other Environment",
         "Intended Audience :: Science/Research",
@@ -37,7 +42,7 @@ setup(
     ],
     install_requires=[
         "numpy >= 1.6.0", 
-        "simplewrap >= 0.1.0", 
-        "petlink >= 0.1.0" ], 
+        "simplewrap >= 0.2.0", 
+        "petlink >= 0.2.0" ], 
 )
 

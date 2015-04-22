@@ -5,7 +5,7 @@
 # Oct 2013, Helsinki 
 
 import unittest
-from .. import listmode
+from .. import Interfile
 
 
 class TestInterfile(unittest.TestCase): 

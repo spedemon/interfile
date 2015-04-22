@@ -29,6 +29,7 @@ OBLIGATORY  = ['!']
 LINE_END    = ['\r\n','\n']
 DECLARATION = ":="
 COMMENT     = [';']
+TITLES      = ['!INTERFILE']
 
 class LineParser(): 
     def __init__(self,line=None,line_index='unknown'): 
@@ -40,6 +41,9 @@ class LineParser():
         self.line = line
         self.line_index = line_index 
         self.dict = {} 
+        is_title = self._is_title() 
+        if is_title: 
+            return self.dict
         is_comment = self._is_comment() 
         if is_comment: 
             return self.dict 
@@ -165,6 +169,14 @@ class LineParser():
                 return True 
         return False 
 
+    def _is_title(self): 
+        """Returns True if the line is the title of the interfile."""
+        l = self._strip_outer_spaces(self.line) 
+        for t in TITLES:
+            if t in l:
+                return True
+        return False 
+
     def _is_obligatory(self,s): 
         l = self._strip_outer_spaces(s) 
         for st in OBLIGATORY: 
@@ -246,18 +258,21 @@ def load(filename):
 
 
 
-def listmode_to_sinogram(filename): 
-    parser = FileParser()
-    dic = parser.parse_file(filename) 
 
-    n_events = int(dic['total listmode word counts']['value']) 
-    datafile = dic['name of data file']['value']
-    datafile = datafile.replace('\\','//')
-    datafile = os.path.dirname(filename)+'//'+os.path.basename(datafile).lower()
-    with open(datafile,'r') as data_fid: 
-        for i in range(n_events): 
-            event = data_fid.read(4)
-            print "event: ",event
+
+
+#def listmode_to_sinogram(filename): 
+#    parser = FileParser()
+#    dic = parser.parse_file(filename) 
+#
+#    n_events = int(dic['total listmode word counts']['value']) 
+#    datafile = dic['name of data file']['value']
+#    datafile = datafile.replace('\\','//')
+#    datafile = os.path.dirname(filename)+'//'+os.path.basename(datafile).lower()
+#    with open(datafile,'r') as data_fid: 
+#        for i in range(n_events): 
+#            event = data_fid.read(4)
+#            print "event: ",event
 
 
 
