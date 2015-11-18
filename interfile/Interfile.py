@@ -9,12 +9,6 @@ from StringIO import StringIO
 import json
 import os
 import petlink
-try: 
-    import mMR
-except ImportError:
-    have_mMR = False
-else: 
-    have_mMR = True 
 
 class ParsingError(Exception): 
     def __init__(self,value):

@@ -18,7 +18,7 @@ from glob import glob
 
 setup(
     name='interfile',
-    version='0.2.1',
+    version='0.3.0',
     author='Stefano Pedemonte',
     author_email='stefano.pedemonte@gmail.com',
     packages=['interfile', 'interfile.examples', 'interfile.tests'],
@@ -42,7 +42,7 @@ setup(
     ],
     install_requires=[
         "numpy >= 1.6.0", 
-        "simplewrap >= 0.2.0", 
-        "petlink >= 0.2.0" ], 
+        "simplewrap >= 0.3.0", 
+        "petlink >= 0.3.0" ], 
 )
 
