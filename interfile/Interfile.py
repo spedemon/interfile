@@ -8,7 +8,6 @@ __all__ = ['FileParser','load','listmode_to_sinogram']
 from StringIO import StringIO
 import json
 import os
-import petlink
 
 class ParsingError(Exception): 
     def __init__(self,value):
