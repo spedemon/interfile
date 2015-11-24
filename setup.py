@@ -18,7 +18,7 @@ from glob import glob
 
 setup(
     name='interfile',
-    version='0.3.1',
+    version='0.3.2',
     author='Stefano Pedemonte',
     author_email='stefano.pedemonte@gmail.com',
     packages=['interfile', 'interfile.examples', 'interfile.tests'],
