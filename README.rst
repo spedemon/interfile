@@ -2,8 +2,7 @@
 interfile
 =========
 
-Interfile[1] is a flexible file format for Positron Emission Tomography data. It can store volumetric images, 
-sinograms, and calibration data. This The 'interfile' Python library reads and writes interfile files.  
+Interfile[1] is a file format for the exchange of nuclear medicine image, including Positron Emission Tomography (PET) data. It can store sinograms, volumetric and planar images and calibration data. The 'interfile' Python library reads, parses and  writes interfile files. 
 
 Installation
 ============
@@ -20,7 +19,4 @@ python setup.py build test install
 
 References
 ==========
-[1][Todd-Pokropek A, Cradduck TD, Deconinck F. A file format for the exchange of nuclear medicine image data: a specification of Interfile version 3.3. Nucl Med Commun. 1992;13(9):673–99. doi: 10.1097/00006231-199209000-00007.](https://www.ncbi.nlm.nih.gov/pubmed/1448241)
-
-
-
+[1] Todd-Pokropek A, Cradduck TD, Deconinck F. A file format for the exchange of nuclear medicine image data: a specification of Interfile version 3.3. Nucl Med Commun. 1992;13(9):673–99. doi: 10.1097/00006231-199209000-00007. https://www.ncbi.nlm.nih.gov/pubmed/1448241
