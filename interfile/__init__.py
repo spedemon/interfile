@@ -5,6 +5,3 @@
 # Oct 2013, Helsinki 
 
 import Interfile
-import listmode
-
-
