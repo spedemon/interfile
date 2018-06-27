@@ -2,10 +2,11 @@
 # interfile - Interfile read and write 
 # Stefano Pedemonte
 # Aalto University, School of Science, Helsinki
-# Oct 2013, Helsinki 
-# Feb 2015, Helsinki 
+# 2013 - 2015 Helsinki
 
-# Use old Python build system, otherwise the extension libraries cannot be found. FIXME 
+# Use old Python build system, otherwise the C extension libraries cannot be found.
+# his works in Python 2.7 and 3.0, but might break in future releases. 
+# FIXME: TImplement a better search mechanism for the C extension libraries.
 import sys
 for arg in sys.argv: 
     if arg=="install":
@@ -18,7 +19,7 @@ from glob import glob
 
 setup(
     name='interfile',
-    version='0.3.2',
+    version='0.3.3',
     author='Stefano Pedemonte',
     author_email='stefano.pedemonte@gmail.com',
     packages=['interfile', 'interfile.examples', 'interfile.tests'],
@@ -26,7 +27,7 @@ setup(
     scripts=[], 
 #    ext_modules=[interfile_c_module, ],
     test_suite = "interfile.tests", 
-    url='http://www.occiput.io/',
+    url='http://tomographylab.scienceontheweb.net/',
     license='LICENSE.txt',
     description='Interfile read and write.',
     long_description=open('README.rst').read(),
