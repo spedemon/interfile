@@ -1,13 +1,18 @@
+# -*- coding: utf-8 -*-
 
 # interfile - Interfile read and write 
 # Stefano Pedemonte
 # Aalto University, School of Science, Helsinki
 # Oct 2013, Helsinki 
 
+"""This module parses Interfile files.
+"""
+
 __all__ = ['FileParser','load','listmode_to_sinogram']
 from StringIO import StringIO
 import json
 import os
+
 
 class ParsingError(Exception): 
     def __init__(self,value):
@@ -15,8 +20,7 @@ class ParsingError(Exception):
     def __str__(self): 
         return "Parsing Error: "+repr(self.value)
 
-
-
+# String matching values utilized by parser
 IGNORE      = ['%','\00']
 OBLIGATORY  = ['!']
 LINE_END    = ['\r\n','\n']
@@ -24,13 +28,26 @@ DECLARATION = ":="
 COMMENT     = [';']
 TITLES      = ['!INTERFILE']
 
+
 class LineParser(): 
+    """Parses one line of an Interfile header file. 
+    Attributes: 
+        line (str): line of an Interfile header file. Defaults to None. 
+        line_index (int): line number, used to print debug information. Defaults to 'unknown'.
+    """
     def __init__(self,line=None,line_index='unknown'): 
         self.dict = {}         
         if line is not None: 
             self.parse_line(line,line_index)
 
     def parse(self,line,line_index): 
+        """Parses the Interfile header line. 
+        Args: 
+            line (str): line of an Interfile header file. Defaults to None. 
+            line_index (int): line number, used to print debug information. Defaults to 'unknown'.
+        Returns: 
+            dict: dictionary of parsed key-value pairs 
+        """
         self.line = line
         self.line_index = line_index 
         self.dict = {} 
@@ -88,9 +105,8 @@ class LineParser():
         self.dict = {'name':field_name,'value':data,'unit':unit_measure,'type':data_type,'listindex':None,'obligatory':is_obligatory} 
         return self.dict
 
-
     def _no_declaration(self): 
-        """Utility function called by the parser if the line has not declaration symbol. """
+        """Utility function called by the parser if the line has not Interfile declaration symbol. """
         # There is no declaration sequence. Check if it is an empty line. 
         if self._is_empty(self.line): 
             self.dict = {}
@@ -100,7 +116,11 @@ class LineParser():
             raise ParsingError("Line %s does not contain '%s'. \n %s "%(str(self.line_index),DECLARATION,self.line) ) 
 
     def _is_empty(self,s): 
-        """Tells whether the string is empty after replacing the characters that should be ignored and line end characters. """
+        """Tells whether the string is empty after replacing the characters that should be ignored and line end characters. 
+        Args: 
+            s (str): a string.
+        Returns: 
+            bool: True if the string is empty after replacing the characters that should be ignored and line end characters."""
         s = self._strip_ignore(s)
         s = self._strip_ignore(s) 
         s = self._strip_line_end(s) 
@@ -108,28 +128,44 @@ class LineParser():
         return (s=='')
 
     def _strip_ignore(self,s): 
-        """Strip characters that should be ignored (listed in the global variable IGNORE). """
+        """Strip characters that should be ignored (listed in the global variable IGNORE). 
+        Args: 
+            s (str): a string.
+        Returns: 
+            str: input string stripped of IGNORE characters."""
         s2 = s
         for st in IGNORE: 
             s2 = s2.replace(st,'') 
         return s2 
 
     def _strip_obligatory(self,s): 
-        """Strip characters that should be ignored (listed in the global variable IGNORE). """
+        """Strip Interfile obligatory characters (listed in the global variable OBLIGATORY). 
+        Args: 
+            s (str): a string.
+        Returns: 
+            str: input string stripped of OBLIGATORY characters."""
         s2 = s
         for st in OBLIGATORY: 
             s2 = s2.replace(st,'') 
         return s2 
 
     def _strip_line_end(self,s): 
-        """Strip line end characters (listed in the global variable LINE_END). """
+        """Strip line end characters (listed in the global variable LINE_END).
+        Args: 
+            s (str): a string.
+        Returns: 
+            str: input string stripped of LINE_END characters."""
         s2 = s
         for st in LINE_END: 
             s2 = s2.replace(st,'') 
         return s2 
 
     def _strip_outer_spaces(self,s): 
-        """Strip any white spaces to the left and to the right of the string. """
+        """Strip any white spaces to the left and to the right of the string. 
+        Args: 
+            s (str): a string.
+        Returns: 
+            str: input string stripped of white spaces to the left and to the right of the string."""
         s2 = s
         while s2.startswith(' '): 
             s2 = s2[1:]
@@ -138,6 +174,12 @@ class LineParser():
         return s2
        
     def _get_unit_measure(self,s): 
+        """Get the unit measure of a value specified in the Interfile header. 
+        Args: 
+            s (str): an interfile string (one line of a header). 
+        Returns: 
+            (stripped_string (str), unit_measure (str))
+        """
         if not s.endswith(')'): 
             return (s, None)
         else: 
@@ -149,13 +191,30 @@ class LineParser():
         return (stripped_string, unit_measure)
 
     def _get_data_type(self,s): 
+        """Determines data type of an Interfile key-value pair.
+        Args: 
+            s (str): an interfile string (one line of a header). 
+        Returns: 
+            str: data type string
+        """
+        # FIXME: implement extraction of data type description string from Interfile header 
         return None 
 
     def _get_data(self,s): 
+        """Get data from an Interfile header line.
+        Args: 
+            s (str): an interfile string (one line of a header). 
+        Returns: 
+            str: data
+        """
+        # FIXME: implement filters here
         return s 
 
     def _is_comment(self): 
-        """Returns True if the line is a comment (comment sequences are listed in the global variables COMMENT)."""
+        """Returns True if the Interfile header line is a comment (comment sequences are listed in the global 
+        variables COMMENT).
+        Returns: 
+            bool: True if the loaded line is a comment, False otherwise."""
         l = self._strip_outer_spaces(self.line) 
         for st in COMMENT: 
             if l.startswith(st): 
@@ -163,7 +222,9 @@ class LineParser():
         return False 
 
     def _is_title(self): 
-        """Returns True if the line is the title of the interfile."""
+        """Returns True if the line is the title of the interfile.
+        Returns: 
+            bool: True if the loaded line if a title, False otherwise. """
         l = self._strip_outer_spaces(self.line) 
         for t in TITLES:
             if t in l:
@@ -171,6 +232,11 @@ class LineParser():
         return False 
 
     def _is_obligatory(self,s): 
+        """Determines if the Interfile header line contains an obligatory Interfile key-value pair. 
+        Args: 
+            s (str): an interfile string (one line of a header). 
+        Returns: 
+            bool: True is the line contains an obligatory key-value pair, False otherwise. """
         l = self._strip_outer_spaces(s) 
         for st in OBLIGATORY: 
             if l.startswith(st): 
@@ -178,6 +244,12 @@ class LineParser():
         return False         
 
     def _parse_list(self, s):
+        """Parse a string containing an 'Interfile list'.
+        Args: 
+            s (str): a string containing an 'Interfile list'
+        Returns: 
+            list: list of integers or float, depending on the content of the 'Interfile list'.
+        """
         # delete bracers
         s = s.translate(None, "{},")
         list = []
