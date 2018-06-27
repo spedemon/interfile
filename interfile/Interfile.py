@@ -193,6 +193,11 @@ class LineParser():
 
 
 class FileParser(): 
+    """Parser for Interfile files. 
+    Attributes:
+        header (:obj:'str', optional): Name of header file. Defaults to None. 
+            'header' can be an existing Interfile header file or the content of a header file.  
+    """
     def __init__(self,header=None): 
         self.dict = {} 
         if header is not None: 
@@ -204,7 +209,13 @@ class FileParser():
                 except ParsingError: 
                     raise ParsingError("The given string does not appear to be a valid file nor a valid header content.")
 
-    def parse_string(self,header_string): 
+    def parse_string(self,header_string):
+     """Parse the content of an Interfile header file. 
+    Args:
+        header_string (str): header string.
+    Returns: 
+        dict: Dictionary of parsed Interfile key-value pairs
+    """
         self.dict = {} 
         line_parser = LineParser() 
 
@@ -224,18 +235,36 @@ class FileParser():
         fid.close()
         return self.dict
 
-    def parse_file(self,header_filename): 
+    def parse_file(self,header_filename):
+     """Parse an Interfile header file. 
+    Args:
+        header_filename (str): header file name.
+    Returns: 
+        dict: Dictionary of parsed Interfile key-value pairs
+    """
         with open(header_filename,'r') as fid: 
             file_content = fid.read()
         return self.parse_string(file_content) 
 
     def to_dict(self): 
+     """Get the Interfile key-value pairs as a Python dictionary. 
+    Returns: 
+        dict: Dictionary of parsed Interfile key-value pairs
+    """
         return self.dict
 
     def to_json(self): 
+     """Get the Interfile key-value pairs in a JSON string. 
+    Returns: 
+        str: parsed Interfile key-value pairs in JSON format 
+    """
         return json.dumps(self.dict) 
 
     def to_obj(self): 
+     """Get the Interfile key-value pairs as properties of an Interfile object. 
+    Returns: 
+        Interfile: Interfile object 
+    """
         class Interfile(): 
             pass
         I = Interfile() 
@@ -246,30 +275,14 @@ class FileParser():
 
 
 def load(filename): 
+    """Utility function to load and parse an Interfile file. 
+    Args: 
+        filename (str): name of the Interfile header file
+    Returns: 
+        FileParser: FileParser object
+    """
     parser = FileParser() 
     return parser.parse_file(filename) 
-
-
-
-
-
-
-#def listmode_to_sinogram(filename): 
-#    parser = FileParser()
-#    dic = parser.parse_file(filename) 
-#
-#    n_events = int(dic['total listmode word counts']['value']) 
-#    datafile = dic['name of data file']['value']
-#    datafile = datafile.replace('\\','//')
-#    datafile = os.path.dirname(filename)+'//'+os.path.basename(datafile).lower()
-#    with open(datafile,'r') as data_fid: 
-#        for i in range(n_events): 
-#            event = data_fid.read(4)
-#            print "event: ",event
-
-
-
-
 
 
 
