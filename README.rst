@@ -20,7 +20,7 @@ python setup.py build test install
 
 References
 ==========
-[Todd-Pokropek A, Cradduck TD, Deconinck F. A file format for the exchange of nuclear medicine image data: a specification of Interfile version 3.3. Nucl Med Commun. 1992;13(9):673–99. doi: 10.1097/00006231-199209000-00007.][https://www.ncbi.nlm.nih.gov/pubmed/1448241]
+[1][Todd-Pokropek A, Cradduck TD, Deconinck F. A file format for the exchange of nuclear medicine image data: a specification of Interfile version 3.3. Nucl Med Commun. 1992;13(9):673–99. doi: 10.1097/00006231-199209000-00007.](https://www.ncbi.nlm.nih.gov/pubmed/1448241)
 
 
 
