@@ -1,4 +1,4 @@
-=========
+﻿=========
 interfile
 =========
 
@@ -10,7 +10,7 @@ Installation
 Linux, MacOsX
 -------------
 
-pip install interfile
+pip[pip3] install interfile
 
 or download source files, uncompress, at the command line cd to the downloaded folder and run: 
 

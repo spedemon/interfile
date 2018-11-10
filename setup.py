@@ -6,24 +6,25 @@
 
 # Use old Python build system, otherwise the C extension libraries cannot be found.
 # his works in Python 2.7 and 3.0, but might break in future releases. 
-# FIXME: TImplement a better search mechanism for the C extension libraries.
+# FIXME: Implement a better search mechanism for the C extension libraries.
+
 import sys
 for arg in sys.argv: 
     if arg=="install":
         sys.argv.append('--old-and-unmanageable') 
 
-from setuptools import setup, Extension
-from glob import glob 
-
+from setuptools import setup\
+    #, Extension
+#from glob import glob
 #interfile_c_module = Extension('interfile.interfile_c', ['interfile/interfile_c.c']) 
 
 setup(
     name='interfile',
-    version='0.3.3',
+    version='0.3.5',
     author='Stefano Pedemonte',
     author_email='stefano.pedemonte@gmail.com',
     packages=['interfile', 'interfile.examples', 'interfile.tests'],
-    package_data={'interfile.examples':['*.s','*.l','*.hdr']}, 
+    package_data={'interfile.examples':['*.s','*.l','*.hdr','*.pickle']},
     scripts=[], 
 #    ext_modules=[interfile_c_module, ],
     test_suite = "interfile.tests", 
@@ -42,7 +43,8 @@ setup(
         "Topic :: Scientific/Engineering :: Mathematics",
     ],
     install_requires=[
-        "numpy >= 1.6.0", 
-        "simplewrap >= 0.3.0", ], 
+        #"numpy >= 1.6.0",
+        #"simplewrap >= 0.3.0",
+    ],
 )
 

@@ -1,2 +1,4 @@
-v0.1.0, 14-Oct-2013 -- Initial release
-v0.2.0, 03-Feb-2015 —- First stable release
+﻿v0.1.0, 14-Oct-2013 -- Initial release
+v0.2.0, 03-Feb-2015 -- First stable release
+v0.3.5, 10-Nov-2018 -- Porting to Python 3.x
+                    -- Setting up basic unittest scripts
